@@ -1,0 +1,21 @@
+
+.content-denied{
+  vertical-align: middle;
+  width: 100%;
+  background-color: rgb(38, 40, 44);
+  border-radius: 5px;
+  color: #fafafa;
+}
+
+.denied{
+  height: auto;
+  font-family: Roboto-Medium;
+  font-size: 30px;
+  padding: 20px;
+}
+.denied-description{
+  /* line-height: 80px; */
+  font-family: Roboto-Light;
+  font-size: 18px;
+  padding: 20px;
+}

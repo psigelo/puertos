@@ -1,0 +1,166 @@
+.export_csv {
+  background: #444444;
+  color: white;
+  font-size: 25px;
+  margin: 5px;
+}
+
+.export-content {
+  margin-bottom: 5px;
+  color: #fafafa;
+  width: 110px;
+  padding-left: 10px;
+  background-color: #1d1e20;
+  border-radius:5px;
+}
+
+.dcard
+{
+    background:#212529;
+    border:none;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.8)!important;
+}
+
+.even
+{
+  border-bottom: 1px solid #505050;
+}
+.odd
+{
+  border-bottom: 1px solid #505050;
+}
+
+.action-icons{
+  color:#ffbf00;
+}
+
+.dcard-header
+{
+    color: #fff;
+    background:#1d1e20;
+    border:none;
+}
+.text-gray-d1{
+  color:#e8e8e8;
+}
+
+.dcard-table-head{
+  color:#ffc000;
+  border-bottom:2px solid #ffbe00!important;
+  border-top:none;
+  padding-top:20px
+}
+
+.dcard-table-body{
+  color:#333;
+  border-bottom:2px solid #ffbe00!important;
+  border-top:none;
+  padding-top:20px
+  background-color:red;
+}
+
+.dcard-table-foot{
+  border-top:2px solid #ffbe00!important;
+}
+
+.dcard-table{
+  border-top:none;
+  border-bottom: 1px solid #848697!important;
+}
+
+.form-control{
+  color:#f9f9f9;
+  border:none!important;
+  background-color: #181a1c;
+}
+.form-control:focus{
+  color:#f9f9f9;
+  border:none!important;
+  background-color: #181a1c;
+  box-shadow:none;
+}
+.dcard-table-item{
+  border-top:none!important;
+  color: #fafafa;
+  border-bottom: 1px solid #2e333d;
+}
+
+.table{
+border:none;
+}
+
+.dcard-table-item:hover{
+  background: #ffbc00;
+  color:#212529;
+}
+
+
+
+.page-link{
+  color: #858695;
+  border:1px solid #212529;
+  background: #181a1b;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #484848;
+    background-color: #ffbf00;
+    border:1px solid #212529;
+}
+.page-link:hover {
+  background-color: #ffc000;
+  border-color: #212529;
+  color: #484848;
+}
+
+.page-item.active .page-link {
+    color: #484848;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #ffc000;
+    border-color: #212529;
+}
+
+.page-item.disabled .page-link {
+    color: #484848;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #181a1b;
+    border-color: #212529;
+}
+
+.action-icon{
+  color:#fafafa;
+}
+
+.action-icon:hover{
+  color:#202429!important;
+}
+
+table#example.dataTable tbody tr:hover {
+  background-color: #ffa;
+}
+
+table#example.dataTable tbody tr:hover > .sorting_1 {
+  background-color: #ffa;
+}
+
+table#example.dataTable tbody tr {
+  background-color: #212529;
+}
+
+table#example.dataTable tbody tr > .sorting_1 {
+  background-color: #212529;
+}
+
+.dataTables_length{
+    color: #fff !important ;
+}
+.dataTables_filter{
+color: #fff !important ;
+}
+
+.dataTables_info{
+color: #fff !important ;
+}

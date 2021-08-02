@@ -1,0 +1,76 @@
+
+
+## load sidebar and navigation bar
+{% extends "base.html" %}
+
+
+
+##load title
+{% block title %} Index {% end %}º
+
+{% block javascripts %}
+<link rel="stylesheet" type="text/css" href='{{static_url("isafer.css")}}'>
+
+
+
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src='{{static_url("arcplot.js")}}'></script>
+<script src='{{static_url("networkplot.js")}}'></script>
+<script src="https://cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
+datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
+datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+        $(document).ready(function() {
+          $("#day_pick").datepicker({format: 'yyyy-mm-dd', autoclose: true});
+        });
+</script>
+{% end %}
+
+<!-- Custom styles for this template -->
+{% block styles %}
+{% end %}
+
+#item value
+{% block sidebar_item %}Index{% end %}
+
+##the content page is here
+{% block content %}
+
+<!-- Page Heading -->
+<div class="title_body"> Sensores de ubicación </div>
+
+
+
+<!-- Area Chart -->
+<div class="row">
+
+
+
+<!-- Page content -->
+<div class="main">
+
+
+
+</div>
+</div>
+
+<script>
+    var tracer_form = document.getElementById("tracer_form");
+    function handleForm(event) {
+        event.preventDefault();
+        var day = $("#day_pick").val().replace(/-/g, "T");
+        day = day.replace(/\//g, "T");
+        GetSensorsData(day);
+        GetNetPlotData(day, day);
+    }
+    tracer_form.addEventListener('submit', handleForm);
+
+</script>
+{% end %}

@@ -1,0 +1,79 @@
+
+
+## load sidebar and navigation bar
+{% extends "base.html" %}
+
+
+
+##load title
+{% block title %} Index {% end %}º
+
+{% block javascripts %}
+    <link rel="stylesheet" type="text/css" href='{{static_url("isafer.css")}}'>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src='{{static_url("uploaders_ratio.js")}}'></script>
+    <script src='{{static_url("day_contacts.js")}}'></script>
+{% end %}
+
+<!-- Custom styles for this template -->
+{% block styles %}
+{% end %}
+
+#item value
+{% block sidebar_item %}Index{% end %}
+
+##the content page is here
+{% block content %}
+<div class="title_body"> Agregar usuario </div>
+<br \>
+<div class="up_dash_item"> <p>Datos requeridos</p> </div>
+<div class="bottom_dash_item">
+    <div style="margin-left:25px;">
+        <form id="add_user_form">
+          <label for="nombre">Nombre:</label><br>
+          <input type="text" id="nombre" name="nombre"><br><br>
+          <label for="rut">Rut:</label><br>
+          <input type="text" id="rut" name="rut"><br><br>
+          <label for="telefono">telefono:</label><br>
+          <input type="text" id="telefono" name="telefono"><br><br>
+            <label for="empresa">empresa:</label><br>
+          <input type="text" id="empresa" name="empresa"><br><br>
+            <label for="marca">marca celular:</label><br>
+          <input type="text" id="marca" name="marca"><br><br>
+            <label for="equipo">equipo celular:</label><br>
+          <input type="text" id="equipo" name="equipo"> <br><br>
+            <label for="estado">estado (normalmente: activo):</label><br>
+          <input type="text" id="estado" name="estado"> <br><br>
+
+            <input type="checkbox" id="habilitado" name="habilitado">
+            <label for="habilitado"> habilitado</label> <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+<script>
+    var add_user_form = document.getElementById("add_user_form");
+    function handleForm(event) {
+        event.preventDefault();
+        var nombre = "f" +$("#nombre").val().replace(/ /g, "_");
+        var rut = "f" + $("#rut").val().replace(/ /g, "_").replace(/-/g, "T");
+        var telefono = "f" + $("#telefono").val().replace(/ /g, "_");
+        var empresa = "f" + $("#empresa").val().replace(/ /g, "_");
+        var marca = "f" + $("#marca").val().replace(/ /g, "_");
+        var equipo = "f" + $("#equipo").val().replace(/ /g, "_");
+        var estado = "f" + $("#estado").val().replace(/ /g, "_");
+        var habilitado = (document.getElementById("habilitado").checked)?"si":"no";
+        console.log(nombre, rut, telefono, empresa, marca, equipo, habilitado, estado);
+
+        $.getJSON("/add_user_cellphone/"+nombre + "/" + rut + "/" + telefono + "/" + empresa + "/" + marca + "/" +
+         equipo + "/" + habilitado + "/" + estado, function (data, status) {
+            alert("user created");
+        });
+    }
+    add_user_form.addEventListener('submit', handleForm);
+</script>
+{% end %}

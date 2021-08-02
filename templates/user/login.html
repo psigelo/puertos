@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{{name = "project name" }}</title>
+
+  <!-- Custom CSS-->
+<link rel="stylesheet" href="/base/static/css/auth/login.css" type="text/css">
+
+</head>
+
+<body id="page-top">
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid"></div>
+  </nav>
+  <header></header>
+  <div class="main-content">
+    <!--LOGO IMAGE LOGIN -->
+    <div class='login-logo'>
+
+      <img class='img-logo' src="/base/static/resources/svg/logo.svg">
+      <div class='title-box'>
+        <h1 class='title-logo'>{{name}}</h1>
+        <div class="brand">
+          <span class="span-logo">powered by &nbsp;</span><img class='img-company' src="/base/static/resources/svg/innovaxxion_grey.svg">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="login-box-line"></div>
+    <div class="login-box"></div>
+    <div class="login-form">
+      <form id="login_form" role="form" action="login" method="POST">
+        <div class="form-textfields">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input id="username" type="text" name="username" placeholder="Ingresar username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input id="password" type="password" name="password" placeholder="Ingresar password" class="form-control">
+          </div>
+          <div style="color:#ff8600;background-color:#2f2f2f;border-radius:4px;margin-top:5px;padding-right:9px;">
+            <span>{{notification}}</span>
+          </div>
+        </div>
+
+        <div class="submit-box">
+          <button type="submit" name="login" class="btn-circle">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <footer><div class='logo-footer'> <img class='img-footer' src="/base/static/resources/svg/innovaxxion_grey.svg"></div></footer>
+
+  <!-- Plugin JavaScript -->
+  <script src="/base/static/js/auth/login.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+
+
+## load sidebar and navigation bar
+{% extends "base.html" %}
+
+
+
+##load title
+{% block title %} Index {% end %}º
+
+{% block javascripts %}
+    <link rel="stylesheet" type="text/css" href='{{static_url("isafer.css")}}'>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src='{{static_url("uploaders_ratio.js")}}'></script>
+    <script src='{{static_url("day_contacts.js")}}'></script>
+    <script src='{{static_url("risk_day_contacts.js")}}'></script>
+{% end %}
+
+<!-- Custom styles for this template -->
+{% block styles %}
+{% end %}
+
+#item value
+{% block sidebar_item %}Index{% end %}
+
+##the content page is here
+{% block content %}
+<div class="title_body"> Estadísticas </div>
+<br \>
+<div class="row">
+  {%module CardD1("Celulares totales", total_celulares, "numsensors", "fas fa-microchip fa-2x", "#4e73df")%}
+  {%module CardD1("Celulares registrados", registrados_celulares, "numsensors", "fas fa-microchip fa-2x", "#4e73df")%}
+  {%module CardD1("Sensores", total_sensores, "numsensors", "fas fa-microchip fa-2x", "#4e73df")%}
+  {%module CardD1("Total contactos", total_contactos, "numsensors", "fas fa-calculator fa-2x", "#4e73df")%}
+  {%module CardD1("Total contactos riesgosos", total_contactos_riesgosos, "numsensors", "fas fa-calculator fa-2x", "#4e73df")%}
+  {%module CardD1PB("DISK USAGE", 0, 100, "progress", "fas fa-database fa-2x", "#36b9cc")%} {%module CardD1("Actualizado (GMT 0)", last_update, "last_updt", "fas fa-history fa-2x", "#4e73df")%}
+</div>
+
+<div>
+    <div class="up_dash_item"> <p>Contactos registrados por día</p> </div>
+    <div class="bottom_dash_item"> <div id="day_contacts" style="width:100%; height:500px;"></div> </div>
+</div>
+<div>
+    <div class="up_dash_item"> <p>Contactos riesgosos por día</p> </div>
+    <div class="bottom_dash_item"> <div id="day_contacts_risk" style="width:100%; height:500px;"></div> </div>
+</div>
+<div>
+    <div class="up_dash_item"> <p>Total usuarios que subieron datos por día</p> </div>
+    <div class="bottom_dash_item"> <div id="chart_ratio_uploaders" style="width:100%; height:500px;"></div> </div>
+</div>
+
+
+{% end %}

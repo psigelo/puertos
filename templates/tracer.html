@@ -1,0 +1,119 @@
+
+
+## load sidebar and navigation bar
+{% extends "base.html" %}
+
+##load title
+{% block title %} Index {% end %}º
+
+{% block javascripts %}
+    <link rel="stylesheet" type="text/css" href='{{static_url("isafer.css")}}'>
+    <link rel="stylesheet" type="text/css" href='{{static_url("datatables_2.css")}}'>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css" />
+
+
+    <script src='{{static_url("arcplot.js")}}'></script>
+    <script src='{{static_url("ganttplot.js")}}'></script>
+    <script src='{{static_url("tracer.js")}}'></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
+    datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
+    datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <script>
+
+    </script>
+
+{% end %}
+
+<!-- Custom styles for this template -->
+{% block styles %}
+{% end %}
+
+#item value
+{% block sidebar_item %}Index{% end %}
+
+##the content page is here
+{% block content %}
+
+  <div class="title_body"> Vista de Trazador</div>
+    <div>
+        <div class="up_dash_item"> <p>Search</p> </div>
+        <div class="bottom_dash_item"> <form id="tracer_form">
+      <label for="day_pick">Selecciona una fecha:</label><br>
+            start: <input id="day_pick" name="day_pick" data-date-end-date="0d" />
+            end: <input id="day_pick_end" name="day_pick" data-date-end-date="0d" />
+      <input type="submit" value="Submit">
+    </form> </div>
+    </div>
+
+<br />
+
+    <div class="card dcard" id="search_users_t">
+        <div class="card-header py-3 dcard-header">
+            <h6 class="m-0 font-weight-bold">selecciona un usuario a trazar</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example" class="table dcard-table hover" width="100%" cellspacing="0">
+                    <thead class="dcard-table-head"></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<div style="width:100%" id="sospechoso">
+    <div class="up_dash_item"> <p>Datos de usuario seleccionado</p> </div>
+        <div class="bottom_dash_item">
+            <table style="width:100%" >
+              <tr>
+                <th>Nombre</th>
+                <th>Rut</th>
+                <th>Telefono</th>
+              </tr>
+              <tr>
+                <td id="t_view"></td>
+                <td id="t_rut"></td>
+                <td id="t_tel"></td>
+              </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div id="preventivo">
+        <div class="up_dash_item"> <p>Vizualizacion de arco</p> </div>
+        <div class="bottom_dash_item">
+            <div id="arcplot"></div>
+
+        </div>
+    </div>
+    <div id="gantt_chart">
+        <div class="up_dash_item"> <p>Interaciones en tiempo</p>
+            <button onclick="download_csv()" style="margin-left:20px;">Download CSV</button></div>
+        <div class="bottom_dash_item"> <div id="ganttplot"></div></div>
+    </div>
+
+
+
+<script>
+    var tracer_form = document.getElementById("tracer_form");
+    function handleForm(event) {
+        event.preventDefault();
+        show_user_table();
+    }
+    tracer_form.addEventListener('submit', handleForm);
+</script>
+
+{% end %}
