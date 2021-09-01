@@ -44,10 +44,40 @@ datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 {% block content %}
 
 <!-- Page Heading -->
-<div class="title_body"> Radares </div>
+<div class="row">
+  {%module CardD1("Radar este", 13, "radar1", "https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+RF.png", "#4e73df")%}
+  {%module CardD1("Radar oeste", 12, "radar2", "https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+RF.png", "#A349A4")%}
+    <div class="col-xl-3 col-md-6 mb-4">
+  <div class="card shadow h-100 py-2 dcard" style="border-left: 0.25rem solid #11aadd !important;">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:#11aadd">Anemometro</div>
+            <div class="row">
+          <div class="column h5 mb-0 font-weight-bold text-gray-d1"
+               style="margin-left:20px;margin-right:40px; color:#fff"
+               id="anemometer_angle">-</div>
+          <div class="column h5 mb-0 font-weight-bold text-gray-d1"
+               style="color:#fff" id="anemometer_magnitude">-</div>
+        </div>
+        </div> <div class="col-auto"><img style="width:30px; height:30px;" src="https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+Anemo.png" /></div></div>
+    </div>
+
+  </div>
+</div>
+</div>
 
 
-<canvas id="canvas_id"></canvas>
+
+
+<div class="title_body"  style="width:1400px"> Radares
+
+</div>
+
+<div>
+    <canvas id="canvas_id" style="width:1400px"></canvas>
+</div>
+
 
 
 {% end %}

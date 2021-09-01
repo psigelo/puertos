@@ -6,37 +6,176 @@ var ctx_canvas;
 var canvas
 const radars_list = []
 var port_img = new Image(60, 45)
+var ship_img = new Image(60, 45)
+var wind_img = new Image(60, 45)
+var wind_rose_img = new Image(60, 45)
 var state_change = false
 var port_image_is_ready = false
+var wind_img_is_ready = false
+var wind_rose_img_is_ready = false
+var startTime = new Date();
 
 port_x_i = 500
 port_y_i = 300
 port_x_w = 1100
 port_y_w = 500
 
+distance_warning = 5.0
+distance_alarm = 7.0
+
 port_img.onload = update_image_state
-port_img.src = "https://imagenespluma.s3.sa-east-1.amazonaws.com/Puerto.png"
+port_img.src = "https://imagenespluma.s3.sa-east-1.amazonaws.com/Muelle.png"
+
+ship_img.onload = update_ship_image_state
+ship_img.src = "https://imagenespluma.s3.sa-east-1.amazonaws.com/barco.png"
+
+ship_img.onload = update_wind_image_state
+wind_img.src =  "https://imagenespluma.s3.sa-east-1.amazonaws.com/Viento.png"
+
+wind_rose_img.onload = update_wind_rose_image_state
+wind_rose_img.src =  "https://imagenespluma.s3.sa-east-1.amazonaws.com/Rosa+de+los+Vientos_B.png"
 
 
+function update_wind_rose_image_state(){
+    wind_rose_img_is_ready = true
+}
+
+function update_wind_image_state(){
+    wind_img_is_ready = true
+}
 
 function update_image_state() {
     port_image_is_ready = true
     state_change = true
 }
 
-function draw_port(){
-    ctx_canvas.drawImage(port_img, canvas.width/5, (canvas.height * 3)/5, (canvas.width* 4)/6, 300)
+function update_ship_image_state() {
+    ship_image_is_ready = true
+    state_ship_change = true
 }
 
+function draw_port(){
+    ctx_canvas.drawImage(port_img, 500 , (canvas.height * 3)/5, 600, 150)
+}
+
+function draw_wind_rose(){
+    ctx_canvas.drawImage(wind_rose_img, 10 , 10, 150, 150)
+}
+
+
+function draw_ship(radar1, radar2, timeDiff){
+    var px_per_mt = 10
+    var angle = Math.atan(Math.abs(radar1-radar2)*px_per_mt/360.0)  // 360 is the amount of pixels between dolphins
+    var height_from_dolphin_left = 220.0 * Math.tan(angle) + Math.min(radar1, radar2)*px_per_mt
+
+    if(radar2>radar1){
+        angle = -Math.atan(Math.abs(radar1-radar2)*px_per_mt/360.0)  // 360 is the amount of pixels between dolphins
+        height_from_dolphin_left = ( -220.0 * Math.tan(angle) + Math.min(radar1, radar2)*px_per_mt)
+    }
+    console.log(angle, radar1, radar2, height_from_dolphin_left)
+
+    ctx_canvas.translate(400 + 400 , 350)
+    ctx_canvas.rotate(angle)
+    ctx_canvas.translate(-(400 + 400) , -350)
+
+    ctx_canvas.drawImage(ship_img, 400 , 210 - height_from_dolphin_left, 800, 150)
+
+    ctx_canvas.translate(400 + 400 , 350)
+    ctx_canvas.rotate(-angle)
+    ctx_canvas.translate(-(400 + 400) , -350)
+
+    ctx_canvas.lineWidth = 4
+    ctx_canvas.strokeStyle = "#FFFFFF"
+
+    if(radar1 > distance_alarm){
+        ctx_canvas.strokeStyle = "#F11"
+    }
+    else if(radar1 > distance_warning){
+        ctx_canvas.strokeStyle = "#DD1"
+    }
+    ctx_canvas.beginPath();
+    ctx_canvas.moveTo(620, 360);
+    ctx_canvas.lineTo(620, 360 - radar1 * px_per_mt);
+    ctx_canvas.closePath();
+    ctx_canvas.stroke();
+
+    ctx_canvas.strokeStyle = "#FFFFFF"
+
+    if(radar2 > distance_alarm){
+        ctx_canvas.strokeStyle = "#F11"
+    }
+    else if(radar2 > distance_warning){
+        ctx_canvas.strokeStyle = "#DD1"
+    }
+    ctx_canvas.beginPath();
+    ctx_canvas.moveTo(980, 360);
+    ctx_canvas.lineTo(980, 360 - radar2 * px_per_mt);
+    ctx_canvas.closePath();
+    ctx_canvas.stroke();
+
+
+
+    ctx_canvas.beginPath();
+    ctx_canvas.arc(545, 385, 35, 0, 2 * Math.PI, false)
+    ctx_canvas.fillStyle = "#4e73df"
+    ctx_canvas.fill()
+    ctx_canvas.lineWidth = 3
+    ctx_canvas.strokeStyle = "#FFF"
+
+    ctx_canvas.stroke()
+    ctx_canvas.fillStyle = "white";
+    ctx_canvas.font = "20px Arial";
+    ctx_canvas.fillText(radar1.toString(), 532, 380);
+    ctx_canvas.fillText("[m]", 532, 400);
+
+
+    ctx_canvas.beginPath();
+    ctx_canvas.arc(1050, 385, 35, 0, 2 * Math.PI, false)
+    ctx_canvas.fillStyle = "#A349A4"
+    ctx_canvas.fill()
+    ctx_canvas.lineWidth = 3
+    ctx_canvas.strokeStyle = "#FFF"
+    ctx_canvas.stroke()
+
+    ctx_canvas.fillStyle = "white";
+    ctx_canvas.font = "20px Arial";
+    ctx_canvas.fillText(radar2.toString(), 1035, 380);
+    ctx_canvas.fillText("[m]", 1035, 400);
+
+}
+
+
+function draw_wind(anemometer_magnitude, anemometer_angle, timeDiff){
+    // ctx_canvas.beginPath()
+    // ctx_canvas.rotate(radar2)
+
+    ctx_canvas.translate(1400,500)
+    ctx_canvas.rotate( anemometer_angle * Math.PI / 180)
+    ctx_canvas.translate(-1400,-500)
+
+    ctx_canvas.drawImage(wind_img, 1300 ,400, 200, 200)
+
+    ctx_canvas.translate(1400,500)
+    ctx_canvas.rotate( -anemometer_angle * Math.PI / 180)
+    ctx_canvas.translate(-1400,-500)
+
+    ctx_canvas.fillStyle = "white";
+    ctx_canvas.font = "30px Arial";
+    ctx_canvas.fillText(anemometer_magnitude.toString(), 1375, 495);
+    ctx_canvas.font = "25px Arial";
+    ctx_canvas.fillText("[Km/h]", 1365, 520);
+
+    // ctx_canvas.drawImage(wind_img, 1500 ,450, 100, 100)
+}
 
 function init_canvas() {
     canvas = document.getElementById("canvas_id")
     // port_img = document.getElementById("port_img_id")
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    canvas.width = 1660
+    canvas.height = 600
     ctx_canvas = canvas.getContext("2d")
 
-    ctx_canvas.fillStyle = "#234449";
+    ctx_canvas.fillStyle = "#222222";
     ctx_canvas.fillRect(0, 0, canvas.width, canvas.height);
 
     // ctx_canvas.drawImage(port_img, 100, 100, 100, 100);
@@ -48,58 +187,80 @@ function set_up_radars() {
     console.log("setup_radars")
 }
 
-class Radar{
-    constructor(position_x, position_y, radar_id){
-        this.position_x = position_x
-        this.position_y = position_y
-        this.radar_id = radar_id
-    }
-}
-
-
-class Ship{
-    constructor(radars_list, img_ship){
-        this.radars_list = radars_list
-        this.ship_img = new Image()
-        this.ship_img.onload = this.update_image_state_method
-        this.image_ready = false
-        this.ship_img.src = img_ship
-    }
-
-    set img_ready(img_ready_){
-        this.image_ready = img_ready_
-    }
-    get img_ready(){
-        return self.image_ready
-    }
-
-    update_image_state_method() {
-        console.log("ship image_ready")
-        this.img_ready = true
-        console.log(this.img_ready)
-        state_change = true
-    }
-
-    draw(){
-        ctx_canvas.drawImage(this.ship_img, port_x_i, port_y_i, port_x_w, port_y_w)
-    }
-
-    sate_change(){return this.state_change}
-
-}
-
-
-// ship = new Ship(radars_list, "https://drive.google.com/file/d/1z2Xy-MXkBxykoA-LpCqPHl3GFUiunLt-/view?usp=sharing")
-
-function draw_scenario(){
+function draw_scenario(radar1, radar2, anemometer_magnitude, anemometer_angle, timeDiff){
+    ctx_canvas.clearRect(0, 0, canvas.width, canvas.height);
+    ctx_canvas.fillStyle = "#222222";
+    ctx_canvas.fillRect(0, 0, canvas.width, canvas.height);
+    ctx_canvas.fill()
     draw_port()
-    //ship.draw()
+
+    draw_wind_rose()
+
+
+
+    draw_ship(radar1, radar2, timeDiff)
+    draw_wind(anemometer_magnitude, anemometer_angle, timeDiff)
+
 }
 
-//function animate(){
-//    requestAnimationFrame(animate)
-    // if(state_change){
-//        state_change = false
-//        draw_scenario()
-    // }https://imagenespluma.s3.sa-east-1.amazonaws.com/Puerto.png
-//}
+function anemometer_notation(anemometer_angle){
+    if(anemometer_angle > 327 || anemometer_angle < 22){
+        return "Norte"
+    }
+    else if(anemometer_angle > 22 || anemometer_angle < 68){
+        return "Noreste"
+    }
+    else if(anemometer_angle > 68 || anemometer_angle < 113){
+        return "Este"
+    }
+    else if(anemometer_angle > 113 || anemometer_angle < 158){
+        return "Sureste"
+    }
+    else if(anemometer_angle > 158 || anemometer_angle < 202){
+        return "Sur"
+    }
+    else if(anemometer_angle > 202 || anemometer_angle < 248){
+        return "Sureste"
+    }
+    else if(anemometer_angle > 248 || anemometer_angle < 293){
+        return "Oeste"
+    }
+    else{
+        return "Noroeste"
+    }
+}
+
+function get_data(){
+    var current_time = new Date()
+    var timeDiff = current_time - startTime
+    $.getJSON('http://127.0.0.1:5678/get_last_state', function(data) {
+        radar1 = data["radar1"]
+        radar2 = data["radar2"]
+        anemometer_angle = data["anemometer_angle"]
+
+        // radar1 = ((Math.sin(timeDiff/2000)+1) * 4).toFixed(1)
+        // radar2 = ((Math.cos(timeDiff/2000)+1) * 4).toFixed(1)
+        anemometer_angle = Math.trunc( 15*Math.cos(timeDiff/3000) ) %360
+
+
+        sea_notation = anemometer_notation(anemometer_angle)
+
+        draw_scenario(radar1, radar2, data["anemometer_magnitude"], anemometer_angle, timeDiff)
+
+        element = document.getElementById("radar1");
+        element.innerHTML = radar1 + " mts";
+
+        element = document.getElementById("radar2");
+        element.innerHTML = radar2 + " mts";
+
+        element = document.getElementById("anemometer_angle");
+        element.innerHTML =  anemometer_angle.toString() + " º " + sea_notation;
+
+        element = document.getElementById("anemometer_magnitude");
+        element.innerHTML =  data["anemometer_magnitude"].toString() + " km/h";
+    });
+    setTimeout(get_data, 100)
+}
+
+screen.orientation.lock('landscape');
+setTimeout(function(){ get_data() }, 100);
