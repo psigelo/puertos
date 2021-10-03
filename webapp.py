@@ -30,6 +30,7 @@ from modules.base.ui.sidebarnav import sidebarnav
 # BASE APP UI elements
 from modules.base.ui.topbarnav import topbarnav
 # APP Handlers here
+from modules.iot_isafer.Index import MobilHandler
 from modules.iot_isafer.handlers.handlers import DeveloperHandler, ArcData, NetPlotData, \
     UploadersData, MostCentralUsers, DayContactsData, \
     IndexHandler, \
@@ -111,6 +112,9 @@ class Application(Application):
             # YOUR APP ENDPOINTS HERE
             # Application
             (r"/index", IndexHandler, {"configs": self.config}),
+            (r"/mobil", MobilHandler),
+
+
             (r"/developer", DeveloperHandler, {"configs": self.config}),
             (r"/tracer", TracerHandler, {"configs": self.config}),
             (r"/location", LocationHandler, {"configs": self.config}),

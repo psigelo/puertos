@@ -16,12 +16,23 @@ class IndexHandler(BaseHandler):
         # tenant = User.objects.get(username=username).tenant
         # sensors = Sensor.objects(tenant=tenant)
         # comms = Comm.objects(tenant=tenant)
-
         # tenant = User.objects.get(username=username).tenant
-        #sensors = Sensor.objects()
-        #comms = Comm.objects()
+        # sensors = Sensor.objects()
+        # comms = Comm.objects()
 
         sensors = []
         comms = []
         url = self.templates_dir+"index.html"
-        self.render(url, hostname=hostname, ip=ip, sensors=sensors, comms=comms)
+        self.render(url, hostname=hostname, ip=ip, sensors=sensors, comms=comms, username=username)
+
+
+class MobilHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        hostname = socket.gethostname()
+        ip = socket.gethostbyname(hostname)
+        username = self.get_current_user()
+        sensors = []
+        comms = []
+        url = self.templates_dir+"mobil.html"
+        self.render(url, username=username, ip=ip, sensors=sensors, comms=comms)

@@ -1,18 +1,13 @@
-
-
 ## load sidebar and navigation bar
 {% extends "base.html" %}
 
 
 
-##load title
+## load title
 {% block title %} Index {% end %}º
 
 {% block javascripts %}
 <link rel="stylesheet" type="text/css" href='{{static_url("isafer.css")}}'>
-
-
-
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
@@ -25,12 +20,7 @@ datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
 datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-<script>
-        $(document).ready(function() {
-          $("#day_pick").datepicker({format: 'yyyy-mm-dd', autoclose: true});
-          $("#day_pick_end").datepicker({format: 'yyyy-mm-dd', autoclose: true});
-        });
-</script>
+
 {% end %}
 
 <!-- Custom styles for this template -->
@@ -45,8 +35,8 @@ datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 <!-- Page Heading -->
 <div class="row">
-  {%module CardD1("Radar este", 13, "radar1", "https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+RF.png", "#4e73df")%}
-  {%module CardD1("Radar oeste", 12, "radar2", "https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+RF.png", "#A349A4")%}
+  {%module CardD1("Radar este", 13, "radar1", "https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+RF.png", "#11aadd")%}
+  {%module CardD1("Radar oeste", 12, "radar2", "https://imagenespluma.s3.sa-east-1.amazonaws.com/Icono+RF.png", "#11aadd")%}
     <div class="col-xl-3 col-md-6 mb-4">
   <div class="card shadow h-100 py-2 dcard" style="border-left: 0.25rem solid #11aadd !important;">
     <div class="card-body">
@@ -70,9 +60,7 @@ datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 
 
-<div class="title_body"  style="width:1400px"> Radares
-
-</div>
+<div class="title_body"  style="width:1400px"> Radares </div>
 
 <div>
     <canvas id="canvas_id" style="width:1400px"></canvas>
