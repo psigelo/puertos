@@ -260,7 +260,7 @@ function anemometer_notation(anemometer_angle){
 function get_data(){
     var current_time = new Date()
     var timeDiff = current_time - startTime
-    $.getJSON('http://192.168.0.119:5678/get_last_state', function(data) {
+    $.getJSON('http://10.10.10.14:5678/get_last_state', function(data) {
         radar1 = data["radar1"]
         radar2 = data["radar2"]
         anemometer_angle = data["anemometer_angle"]
@@ -324,7 +324,7 @@ function init_canvas() {
         var mousePos = getMousePos(canvas, evt);
         console.log(mousePos)
         if (isInside(mousePos,rect)) {
-            $.getJSON('http://192.168.0.119:5678/get_button', function(data) {
+            $.getJSON('http://10.10.10.14:5678/get_button', function(data) {
                 console.log("button sent")
              });
         }
